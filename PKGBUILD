@@ -3,14 +3,14 @@
 
 pkgbase=qbittorrent-git
 pkgname=(qbittorrent-git qbittorrent-nox-git)
-pkgver=4.5.0alpha1.r320.gde8377ab5
+pkgver=4.5.0alpha1.r332.g19cbffb5e
 pkgrel=1
 epoch=1
 arch=(x86_64)
 url='https://www.qbittorrent.org'
 license=(custom GPL)
-depends=(libtorrent-rasterbar qt6-base)
-makedepends=(git cmake boost qt6-tools qt6-svg)
+depends=(libtorrent-rasterbar qt5-base)
+makedepends=(git cmake boost qt5-tools qt5-svg)
 optdepends=('python: needed for torrent search tab')
 source=("$pkgbase::git+https://github.com/qbittorrent/qBittorrent.git")
 sha256sums=('SKIP')
@@ -39,12 +39,12 @@ pkgver() {
 build() {
   cmake -B build -S $pkgbase \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DQT6=ON
+    -DQT6=OFF
   cmake --build build
 
   cmake -B build-nox -S $pkgbase \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DQT6=ON \
+    -DQT6=OFF \
     -DGUI=OFF \
     -DSYSTEMD=ON
   cmake --build build-nox
@@ -52,7 +52,7 @@ build() {
 
 package_qbittorrent-git() {
   pkgdesc='An advanced BitTorrent client programmed in C++, based on Qt toolkit and libtorrent-rasterbar (git version)'
-  depends+=(qt6-svg hicolor-icon-theme)
+  depends+=(qt5-svg hicolor-icon-theme)
   conflicts=('qbittorrent')
   provides=('qbittorrent')
 
